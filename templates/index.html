@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spam Classifier</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 400px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Spam Message Classifier</h2>
+        <form method="POST" action="/predict-form">
+            <select name="task" required style="width: 100%; padding: 10px; margin-bottom: 20px; border-radius: 6px;">
+                <option value="spam">Spam Detection</option>
+                <option value="sentiment">Sentiment Analysis</option>
+                <option value="Phishing">Phishing</option>
+                <!-- Phishing is skipped in form since it needs feature input -->
+            </select>
+        
+            <input type="text" name="text" placeholder="Enter your message" required>
+        
+            <button type="submit">Classify</button>
+        </form>
+        
+
+        {% if prediction %}
+            <div class="result">
+                Prediction: <span style="color: {{ 'red' if prediction == 'Spam' else 'green' }}">{{ prediction }}</span>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
